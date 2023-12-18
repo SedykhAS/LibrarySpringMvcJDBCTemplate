@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book page</title>
+</head>
+<body>
+
+<a th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">Book</a>
+
+<br>
+<hr>
+
+<a th:text="'Owner of this book is: ' + ${owner.getName()}" th:if="${owner != null}">
+    <br>
+</a>
+
+<form th:method="PATCH" th:action="@{/books/{id}/unset(id=${book.getId()})}" th:if="${owner != null}">
+    <input type="submit" value="Cancel reservation">
+</form>
+
+<form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}" th:if="${owner == null}">
+    <label for="person">Select person to appoint book: </label>
+    <select th:object="${person}" th:field="*{id}" id="person">
+        <option th:each="person: ${people}" th:value="${person.getId()}"
+                th:text="${person.getName()}"></option>
+    </select>
+    <input type="submit" value="Appoint!">
+</form>
+
+<br>
+<hr>
+
+<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+  <input type="submit" value="Delete!">
+</form>
+
+</body>
+</html>

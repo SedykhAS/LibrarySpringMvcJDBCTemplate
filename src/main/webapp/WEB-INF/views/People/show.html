@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+
+
+<a th:text="${person.getName() + ', ' + person.getAge()}">user</a>
+
+<br>
+<hr>
+
+<a th:text="'Person list of book: '" th:if="${books.isEmpty() == false}"> <br> </a>
+
+<div th:each="book: ${books}" th:if="${books.isEmpty() == false}">
+    <a th:text="${book.getTitle() + ', ' + book.getYear()}">book</a>
+</div>
+
+<a th:if="${books.isEmpty() == true}">Person don't take any books</a>
+
+<br/>
+<hr/>
+
+<form th:action="@{/people/{id}/edit(id=${person.getId()})}" target="_blank">
+    <button>Edit</button>
+</form>
+
+<br>
+
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <input type="submit" value="Delete!">
+</form>
+
+</body>
+</html>
